@@ -1,0 +1,33 @@
+name: Build macOS App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build app
+        run: |
+          xcodebuild -project minimax-usage-checker.xcodeproj \
+            -scheme minimax-usage-checker \
+            -configuration Debug \
+            -derivedDataPath ./build \
+            build \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: minimax-usage-checker
+          path: build/Build/Products/Debug/minimax-usage-checker.app
+          retention-days: 7
