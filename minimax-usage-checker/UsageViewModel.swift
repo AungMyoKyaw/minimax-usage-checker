@@ -1,12 +1,6 @@
-//
-//  UsageViewModel.swift
-//  minimax-usage-checker
-//
-//  Created by Aung Myo Kyaw on 2/13/26.
-//
-
 import Foundation
 import Combine
+import UserNotifications
 
 @MainActor
 class UsageViewModel: ObservableObject {
@@ -20,6 +14,11 @@ class UsageViewModel: ObservableObject {
 
     init() {
         loadAPIKey()
+        requestNotificationPermission()
+    }
+    
+    private func requestNotificationPermission() {
+        NotificationManager.shared.requestAuthorization()
     }
 
     private func stopTimer() {
@@ -60,6 +59,7 @@ class UsageViewModel: ObservableObject {
             if response.baseResp.isSuccess {
                 modelRemains = response.modelRemains
                 errorMessage = nil
+                NotificationManager.shared.checkAndNotify(modelRemains: modelRemains)
             } else {
                 errorMessage = response.baseResp.statusMsg
                 modelRemains = []
