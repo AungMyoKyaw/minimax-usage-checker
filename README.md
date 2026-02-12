@@ -5,6 +5,7 @@ A native macOS application for monitoring your MiniMax AI API usage in real-time
 ![macOS](https://img.shields.io/badge/macOS-12.0+-blue?style=flat-square)
 ![Swift](https://img.shields.io/badge/Swift-5.9+-orange?style=flat-square)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Charts-green?style=flat-square)
+[![Build macOS App](https://github.com/aungmyokyaw/minimax-usage-checker/actions/workflows/build.yml/badge.svg)](https://github.com/aungmyokyaw/minimax-usage-checker/actions/workflows/build.yml)
 
 ## Features
 
