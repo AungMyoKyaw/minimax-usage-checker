@@ -146,7 +146,7 @@ private let criticalThreshold: Double = 5.0    // 95% usage
 
 ## License
 
-MIT License
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Author
 
