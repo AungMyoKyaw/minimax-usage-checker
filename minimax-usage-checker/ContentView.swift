@@ -589,7 +589,7 @@ struct HistoryList: View {
                             .padding(.horizontal, 24)
                             .padding(.top, 16)
                         
-                        ForEach(items, id: \.modelName) { snapshot in
+                        ForEach(items, id: \.timestamp) { snapshot in
                             HistoryRow(snapshot: snapshot)
                                 .padding(.horizontal, 24)
                         }
