@@ -24,7 +24,7 @@ struct ModelRemain: Codable, Identifiable {
     let endTime: Int64
     let remainsTime: Int64
     let currentIntervalTotalCount: Int
-    let currentIntervalUsageCount: Int
+    let currentIntervalRemainingCount: Int
     let modelName: String
 
     enum CodingKeys: String, CodingKey {
@@ -32,20 +32,25 @@ struct ModelRemain: Codable, Identifiable {
         case endTime = "end_time"
         case remainsTime = "remains_time"
         case currentIntervalTotalCount = "current_interval_total_count"
-        case currentIntervalUsageCount = "current_interval_usage_count"
+        case currentIntervalRemainingCount = "current_interval_usage_count"
         case modelName = "model_name"
     }
 
     var id: String { modelName }
 
     // Computed properties for display
+    var usedPrompts: Int {
+        currentIntervalTotalCount - currentIntervalRemainingCount
+    }
+    
     var remainingPrompts: Int {
-        currentIntervalTotalCount - currentIntervalUsageCount
+        currentIntervalRemainingCount
     }
 
     var usagePercentage: Double {
         guard currentIntervalTotalCount > 0 else { return 0 }
-        return Double(currentIntervalUsageCount) / Double(currentIntervalTotalCount) * 100
+        let usedCount = currentIntervalTotalCount - currentIntervalRemainingCount
+        return Double(usedCount) / Double(currentIntervalTotalCount) * 100
     }
 
     var remainsTimeFormatted: String {

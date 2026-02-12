@@ -180,7 +180,7 @@ struct ModelUsageCard: View {
                 .frame(height: 12)
 
                 HStack {
-                    Text("\(model.currentIntervalUsageCount) / \(model.currentIntervalTotalCount) prompts")
+                    Text("\(model.usedPrompts) / \(model.currentIntervalTotalCount) prompts")
                     Spacer()
                     Text(String(format: "%.1f%%", model.usagePercentage))
                 }
