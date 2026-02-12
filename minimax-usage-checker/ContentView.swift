@@ -43,6 +43,9 @@ struct ContentView: View {
         }
         .onAppear {
             enteredAPIKey = viewModel.apiKey
+            if viewModel.hasAPIKey {
+                viewModel.startAutoRefresh(interval: 30)
+            }
         }
     }
 
