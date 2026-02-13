@@ -524,3 +524,100 @@ struct BaseResp: Codable {
 
 ## Recent Changes
 - 001-world-class-ui-ux: Added Swift 5.9+ + SwiftUI (native), Charts framework, Combine, UserNotifications
+
+---
+
+## 001-World-Class-UI-UX Implementation Status
+
+### Design System
+
+**Implemented** (`DesignSystem/` folder):
+| File | Status | Notes |
+|------|--------|-------|
+| `DesignTokens.swift` | ⚠️ Partial | Missing: surfaceHover, borderFocus, text colors, accent colors, shadow tokens |
+| `Animations.swift` | ✅ Complete | All animation extensions implemented |
+| `UsageStatus.swift` | ✅ Complete | Safe/Warning/Critical states |
+| `EmptyStateType.swift` | ✅ Complete | Enum for empty states |
+| `ErrorStateType.swift` | ✅ Complete | Enum for error states |
+
+**Missing Color Assets** (`Assets.xcassets/Colors/`):
+- `surfaceHover.colorset` - needed for hover states
+- `borderFocus.colorset` - needed for focus rings
+- `textPrimary.colorset`, `textSecondary.colorset`, `textTertiary.colorset`, `textDisabled.colorset`
+- `accentPrimary.colorset`, `accentSecondary.colorset`
+
+### Components
+
+**Implemented** (`Components/` folder) - All 11 spec components:
+| Component | Status |
+|-----------|--------|
+| CircularProgressView | ✅ |
+| LinearProgressView | ✅ |
+| StatCard | ✅ |
+| ModelCard | ✅ |
+| EmptyStateView | ✅ |
+| ErrorStateView | ✅ |
+| LoadingStateView | ✅ |
+| TabBar | ✅ |
+| TimeRangePicker | ✅ |
+| TimelineChart | ✅ |
+| TooltipView | ✅ |
+
+**Additional Components** (not in original spec but implemented):
+- PrimaryUsageIndicator
+- ModelStatusList
+- ModelStatusRow
+- StatsOverview
+
+### Views
+
+**Implemented** (`Views/` folder):
+| View | Status |
+|------|--------|
+| DashboardView | ✅ |
+| UsageView | ✅ |
+| HistoryView | ✅ |
+| MainView | ✅ |
+| OnboardingView | ✅ |
+
+### Project Structure
+
+```
+minimax-usage-checker/
+├── DesignSystem/           # Design tokens & types
+│   ├── DesignTokens.swift   # ⚠️ Partial - needs more color/shadow tokens
+│   ├── Animations.swift     # ✅
+│   ├── UsageStatus.swift    # ✅
+│   ├── EmptyStateType.swift # ✅
+│   └── ErrorStateType.swift # ✅
+├── Components/             # Reusable UI components
+│   ├── CircularProgressView.swift
+│   ├── LinearProgressView.swift
+│   ├── ModelCard.swift
+│   ├── TabBar.swift
+│   └── ... (11 total)
+├── Views/                  # Main app views
+│   ├── DashboardView.swift
+│   ├── UsageView.swift
+│   ├── HistoryView.swift
+│   ├── MainView.swift
+│   └── OnboardingView.swift
+├── Assets.xcassets/
+│   └── Colors/             # ⚠️ Missing: surfaceHover, borderFocus, text*, accent*
+└── ...
+```
+
+### LSP/Tooling Note
+
+The project uses `PBXFileSystemSynchronizedRootGroup` for automatic file inclusion. SourceKit may show temporary errors until Xcode fully indexes the new files. Run a clean build to resolve.
+
+### Known Gaps vs Spec
+
+1. **DesignTokens.swift** needs additions per `specs/001-world-class-ui-ux/contracts/design-tokens.md`:
+   - Add `surfaceHover`, `borderFocus` colors
+   - Add `textPrimary`, `textSecondary`, `textTertiary`, `textDisabled` colors
+   - Add `accentPrimary`, `accentSecondary` colors
+   - Add `Shadow` enum with `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-focus`
+   - Add `Radius.full` (9999px)
+
+2. **Assets.xcassets** needs corresponding color sets for above colors with light/dark variants

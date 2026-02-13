@@ -367,16 +367,29 @@ ContentView
 
 ## Component Checklist
 
-| Component | Implemented | Tested | Accessible |
-|-----------|-------------|--------|------------|
-| CircularProgressView | ⬜ | ⬜ | ⬜ |
-| LinearProgressView | ⬜ | ⬜ | ⬜ |
-| StatCard | ⬜ | ⬜ | ⬜ |
-| ModelCard | ⬜ | ⬜ | ⬜ |
-| EmptyStateView | ⬜ | ⬜ | ⬜ |
-| ErrorStateView | ⬜ | ⬜ | ⬜ |
-| LoadingStateView | ⬜ | ⬜ | ⬜ |
-| TabBar | ⬜ | ⬜ | ⬜ |
-| TimeRangePicker | ⬜ | ⬜ | ⬜ |
-| TimelineChart | ⬜ | ⬜ | ⬜ |
-| TooltipView | ⬜ | ⬜ | ⬜ |
+> **Note**: This checklist reflects the current implementation status as of 2026-02-14.
+
+|| Component | Implemented | Tested | Accessible |
+||-----------|-------------|--------|------------|
+|| CircularProgressView | ✅ | ⬜ | ⬜ |
+|| LinearProgressView | ✅ | ⬜ | ⬜ |
+|| StatCard | ✅ | ⬜ | ⬜ |
+|| ModelCard | ✅ | ⬜ | ⬜ |
+|| EmptyStateView | ✅ | ⬜ | ⬜ |
+|| ErrorStateView | ✅ | ⬜ | ⬜ |
+|| LoadingStateView | ✅ | ⬜ | ⬜ |
+|| TabBar | ✅ | ⬜ | ⬜ |
+|| TimeRangePicker | ✅ | ⬜ | ⬜ |
+|| TimelineChart | ✅ | ⬜ | ⬜ |
+|| TooltipView | ✅ | ⬜ | ⬜ |
+
+### Additional Components Implemented
+
+These components were added beyond the original spec:
+
+| Component | Status |
+|-----------|--------|
+| PrimaryUsageIndicator | ✅ |
+| ModelStatusList | ✅ |
+| ModelStatusRow | ✅ |
+| StatsOverview | ✅ |
