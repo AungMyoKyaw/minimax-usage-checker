@@ -27,17 +27,17 @@
 
 **Purpose**: Project structure and design system foundation
 
-- [ ] T001 Create DesignSystem directory at `minimax-usage-checker/DesignSystem/`
-- [ ] T002 Create Components directory at `minimax-usage-checker/Components/`
-- [ ] T003 Create Views directory at `minimax-usage-checker/Views/`
-- [ ] T004 [P] Create UsageSafe color set in `Assets.xcassets/Colors/UsageSafe.colorset/` with Light #34C759, Dark #30D158
-- [ ] T005 [P] Create UsageWarning color set in `Assets.xcassets/Colors/UsageWarning.colorset/` with Light #FF9500, Dark #FF9F0A
-- [ ] T006 [P] Create UsageCritical color set in `Assets.xcassets/Colors/UsageCritical.colorset/` with Light #FF3B30, Dark #FF453A
-- [ ] T007 [P] Create SurfacePrimary color set in `Assets.xcassets/Colors/SurfacePrimary.colorset/` with Light #FFFFFF, Dark #1C1C1E
-- [ ] T008 [P] Create SurfaceSecondary color set in `Assets.xcassets/Colors/SurfaceSecondary.colorset/` with Light #F2F2F7, Dark #2C2C2E
-- [ ] T009 [P] Create SurfaceTertiary color set in `Assets.xcassets/Colors/SurfaceTertiary.colorset/` with Light #E5E5EA, Dark #3A3A3C
-- [ ] T010 [P] Create BorderSubtle color set in `Assets.xcassets/Colors/BorderSubtle.colorset/` with Light #E5E5EA, Dark #38383A
-- [ ] T011 [P] Create BorderEmphasis color set in `Assets.xcassets/Colors/BorderEmphasis.colorset/` with Light #C7C7CC, Dark #48484A
+- [X] T001 Create DesignSystem directory at `minimax-usage-checker/DesignSystem/`
+- [X] T002 Create Components directory at `minimax-usage-checker/Components/`
+- [X] T003 Create Views directory at `minimax-usage-checker/Views/`
+- [X] T004 [P] Create UsageSafe color set in `Assets.xcassets/Colors/UsageSafe.colorset/` with Light #34C759, Dark #30D158
+- [X] T005 [P] Create UsageWarning color set in `Assets.xcassets/Colors/UsageWarning.colorset/` with Light #FF9500, Dark #FF9F0A
+- [X] T006 [P] Create UsageCritical color set in `Assets.xcassets/Colors/UsageCritical.colorset/` with Light #FF3B30, Dark #FF453A
+- [X] T007 [P] Create SurfacePrimary color set in `Assets.xcassets/Colors/SurfacePrimary.colorset/` with Light #FFFFFF, Dark #1C1C1E
+- [X] T008 [P] Create SurfaceSecondary color set in `Assets.xcassets/Colors/SurfaceSecondary.colorset/` with Light #F2F2F7, Dark #2C2C2E
+- [X] T009 [P] Create SurfaceTertiary color set in `Assets.xcassets/Colors/SurfaceTertiary.colorset/` with Light #E5E5EA, Dark #3A3A3C
+- [X] T010 [P] Create BorderSubtle color set in `Assets.xcassets/Colors/BorderSubtle.colorset/` with Light #E5E5EA, Dark #38383A
+- [X] T011 [P] Create BorderEmphasis color set in `Assets.xcassets/Colors/BorderEmphasis.colorset/` with Light #C7C7CC, Dark #48484A
 
 ---
 
@@ -47,11 +47,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T012 Create DesignTokens.swift in `DesignSystem/DesignTokens.swift` with Colors, Spacing, Radius, Typography enums
-- [ ] T013 Create Animations.swift in `DesignSystem/Animations.swift` with appTransition, appSpring, appSubtle, appValue extensions
-- [ ] T014 Create UsageStatus.swift in `DesignSystem/UsageStatus.swift` with safe/warning/critical enum and color mapping
-- [ ] T015 Create EmptyStateType.swift in `DesignSystem/EmptyStateType.swift` with noAPIKey, noHistory, noModels, firstTimeUser cases
-- [ ] T016 Create ErrorStateType.swift in `DesignSystem/ErrorStateType.swift` with networkError, invalidAPIKey, rateLimited, serviceUnavailable cases
+- [X] T012 Create DesignTokens.swift in `DesignSystem/DesignTokens.swift` with Colors, Spacing, Radius, Typography enums
+- [X] T013 Create Animations.swift in `DesignSystem/Animations.swift` with appTransition, appSpring, appSubtle, appValue extensions
+- [X] T014 Create UsageStatus.swift in `DesignSystem/UsageStatus.swift` with safe/warning/critical enum and color mapping
+- [X] T015 Create EmptyStateType.swift in `DesignSystem/EmptyStateType.swift` with noAPIKey, noHistory, noModels, firstTimeUser cases
+- [X] T016 Create ErrorStateType.swift in `DesignSystem/ErrorStateType.swift` with networkError, invalidAPIKey, rateLimited, serviceUnavailable cases
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -65,12 +65,12 @@
 
 ### Implementation for User Story 1
 
-- [ ] T017 [P] [US1] Create CircularProgressView.swift in `Components/CircularProgressView.swift` with progress, status, size parameters
-- [ ] T018 [P] [US1] Create LinearProgressView.swift in `Components/LinearProgressView.swift` with progress, status, height parameters
-- [ ] T019 [US1] Add animation support to CircularProgressView with spring animation on progress change
-- [ ] T020 [US1] Add accessibility labels to CircularProgressView (accessibilityLabel: "Usage progress", accessibilityValue: "X percent used")
-- [ ] T021 [US1] Create PrimaryUsageIndicator.swift in `Components/PrimaryUsageIndicator.swift` combining CircularProgressView with model name and remaining time
-- [ ] T022 [US1] Ensure PrimaryUsageIndicator dominates dashboard visually per FR-011
+- [X] T017 [P] [US1] Create CircularProgressView.swift in `Components/CircularProgressView.swift` with progress, status, size parameters
+- [X] T018 [P] [US1] Create LinearProgressView.swift in `Components/LinearProgressView.swift` with progress, status, height parameters
+- [X] T019 [US1] Add animation support to CircularProgressView with spring animation on progress change
+- [X] T020 [US1] Add accessibility labels to CircularProgressView (accessibilityLabel: "Usage progress", accessibilityValue: "X percent used")
+- [X] T021 [US1] Create PrimaryUsageIndicator.swift in `Components/PrimaryUsageIndicator.swift` combining CircularProgressView with model name and remaining time
+- [X] T022 [US1] Ensure PrimaryUsageIndicator dominates dashboard visually per FR-011
 
 **Checkpoint**: Primary usage indicator complete - users can instantly see their usage status
 
@@ -84,14 +84,14 @@
 
 ### Implementation for User Story 2
 
-- [ ] T023 [US2] Create OnboardingView.swift in `Views/OnboardingView.swift` with brand header, secure input, and action button
-- [ ] T024 [US2] Add gradient circle background with brain.head.profile icon to OnboardingView
-- [ ] T025 [US2] Implement SecureField with DesignTokens styling and focus state
-- [ ] T026 [US2] Add button disabled state when apiKey.isEmpty with visual subdued styling
-- [ ] T027 [US2] Add shadow effect to action button using Color.accentColor.opacity(0.3)
-- [ ] T028 [US2] Add trust message below button: "Your API key is stored locally and never leaves your device"
-- [ ] T029 [US2] Implement auto-focus on SecureField when view appears
-- [ ] T030 [US2] Add transition animation from OnboardingView to main content on successful API key entry
+- [X] T023 [US2] Create OnboardingView.swift in `Views/OnboardingView.swift` with brand header, secure input, and action button
+- [X] T024 [US2] Add gradient circle background with brain.head.profile icon to OnboardingView
+- [X] T025 [US2] Implement SecureField with DesignTokens styling and focus state
+- [X] T026 [US2] Add button disabled state when apiKey.isEmpty with visual subdued styling
+- [X] T027 [US2] Add shadow effect to action button using Color.accentColor.opacity(0.3)
+- [X] T028 [US2] Add trust message below button: "Your API key is stored locally and never leaves your device"
+- [X] T029 [US2] Implement auto-focus on SecureField when view appears
+- [X] T030 [US2] Add transition animation from OnboardingView to main content on successful API key entry
 
 **Checkpoint**: Onboarding flow complete - new users can enter API key frictionlessly
 
@@ -105,16 +105,16 @@
 
 ### Implementation for User Story 3
 
-- [ ] T031 [P] [US3] Create StatCard.swift in `Components/StatCard.swift` with title, value, subtitle, icon, status parameters
-- [ ] T032 [US3] Add hover state to StatCard with scaleEffect(1.02) and shadow increase
-- [ ] T033 [US3] Add accessibility element combining title, value, subtitle for StatCard
-- [ ] T034 [US3] Create StatsOverview.swift in `Components/StatsOverview.swift` with 4 StatCards (Total Used, Remaining, Avg Usage, Models)
-- [ ] T035 [P] [US3] Create ModelStatusRow.swift in `Components/ModelStatusRow.swift` showing model name, window range, remaining time with status color dot
-- [ ] T036 [US3] Implement visual hierarchy in ModelStatusRow prioritizing model closest to limit by size/position/color intensity
-- [ ] T037 [US3] Create ModelStatusList.swift in `Components/ModelStatusList.swift` as container for multiple ModelStatusRows
-- [ ] T038 [US3] Create DashboardView.swift in `Views/DashboardView.swift` combining PrimaryUsageIndicator, StatsOverview, ModelStatusList
-- [ ] T039 [US3] Add ScrollView with DesignTokens.Spacing.lg padding to DashboardView
-- [ ] T040 [US3] Set DashboardView background to DesignTokens.Colors.surfaceTertiary.opacity(0.5)
+- [X] T031 [P] [US3] Create StatCard.swift in `Components/StatCard.swift` with title, value, subtitle, icon, status parameters
+- [X] T032 [US3] Add hover state to StatCard with scaleEffect(1.02) and shadow increase
+- [X] T033 [US3] Add accessibility element combining title, value, subtitle for StatCard
+- [X] T034 [US3] Create StatsOverview.swift in `Components/StatsOverview.swift` with 4 StatCards (Total Used, Remaining, Avg Usage, Models)
+- [X] T035 [P] [US3] Create ModelStatusRow.swift in `Components/ModelStatusRow.swift` showing model name, window range, remaining time with status color dot
+- [X] T036 [US3] Implement visual hierarchy in ModelStatusRow prioritizing model closest to limit by size/position/color intensity
+- [X] T037 [US3] Create ModelStatusList.swift in `Components/ModelStatusList.swift` as container for multiple ModelStatusRows
+- [X] T038 [US3] Create DashboardView.swift in `Views/DashboardView.swift` combining PrimaryUsageIndicator, StatsOverview, ModelStatusList
+- [X] T039 [US3] Add ScrollView with DesignTokens.Spacing.lg padding to DashboardView
+- [X] T040 [US3] Set DashboardView background to DesignTokens.Colors.surfaceTertiary.opacity(0.5)
 
 **Checkpoint**: Dashboard complete - users can see all usage information at a glance
 
@@ -128,17 +128,17 @@
 
 ### Implementation for User Story 4
 
-- [ ] T041 [P] [US4] Create TimeRangePicker.swift in `Components/TimeRangePicker.swift` with Today/Week/Month/All segments
-- [ ] T042 [US4] Add selected state styling to TimeRangePicker with accentColor background and white text
-- [ ] T043 [US4] Add spring animation on TimeRangePicker segment selection
-- [ ] T044 [P] [US4] Create TimelineChart.swift in `Components/TimelineChart.swift` using Charts framework for bar visualization
-- [ ] T045 [US4] Add gradient fill to TimelineChart bars (accentColor to 60% opacity)
-- [ ] T046 [US4] Implement staggered entrance animation for TimelineChart bars
-- [ ] T047 [P] [US4] Create TooltipView.swift in `Components/TooltipView.swift` with title, value, optional detail
-- [ ] T048 [US4] Position TooltipView to avoid screen edges with auto-positioning logic
-- [ ] T049 [US4] Create HistoryView.swift in `Views/HistoryView.swift` with TimeRangePicker and TimelineChart
-- [ ] T050 [US4] Update existing HistoryList to use new design tokens for consistent styling
-- [ ] T051 [US4] Update existing HistoryRow to use DesignTokens.Colors.surfacePrimary and new typography
+- [X] T041 [P] [US4] Create TimeRangePicker.swift in `Components/TimeRangePicker.swift` with Today/Week/Month/All segments
+- [X] T042 [US4] Add selected state styling to TimeRangePicker with accentColor background and white text
+- [X] T043 [US4] Add spring animation on TimeRangePicker segment selection
+- [X] T044 [P] [US4] Create TimelineChart.swift in `Components/TimelineChart.swift` using Charts framework for bar visualization
+- [X] T045 [US4] Add gradient fill to TimelineChart bars (accentColor to 60% opacity)
+- [X] T046 [US4] Implement staggered entrance animation for TimelineChart bars
+- [X] T047 [P] [US4] Create TooltipView.swift in `Components/TooltipView.swift` with title, value, optional detail
+- [X] T048 [US4] Position TooltipView to avoid screen edges with auto-positioning logic
+- [X] T049 [US4] Create HistoryView.swift in `Views/HistoryView.swift` with TimeRangePicker and TimelineChart
+- [X] T050 [US4] Update existing HistoryList to use new design tokens for consistent styling
+- [X] T051 [US4] Update existing HistoryRow to use DesignTokens.Colors.surfacePrimary and new typography
 
 **Checkpoint**: History view complete - users can explore usage patterns over time
 
@@ -152,14 +152,14 @@
 
 ### Implementation for User Story 5
 
-- [ ] T052 [US5] Create ModelCard.swift in `Components/ModelCard.swift` with collapsed and expanded states
-- [ ] T053 [US5] Add model name, usage progress bar, remaining time to collapsed ModelCard state
-- [ ] T054 [US5] Implement expand/collapse spring animation on ModelCard tap
-- [ ] T055 [US5] Add window timeline visualization to expanded ModelCard state showing current position in cycle
-- [ ] T056 [US5] Add shadow-md when ModelCard is expanded for depth indication
-- [ ] T057 [US5] Create UsageView.swift in `Views/UsageView.swift` with LazyVStack of ModelCards
-- [ ] T058 [US5] Add spring animation for ModelCard insertions/removals in UsageView
-- [ ] T059 [US5] Implement press feedback on ModelCard tap using .buttonStyle(.plain)
+- [X] T052 [US5] Create ModelCard.swift in `Components/ModelCard.swift` with collapsed and expanded states
+- [X] T053 [US5] Add model name, usage progress bar, remaining time to collapsed ModelCard state
+- [X] T054 [US5] Implement expand/collapse spring animation on ModelCard tap
+- [X] T055 [US5] Add window timeline visualization to expanded ModelCard state showing current position in cycle
+- [X] T056 [US5] Add shadow-md when ModelCard is expanded for depth indication
+- [X] T057 [US5] Create UsageView.swift in `Views/UsageView.swift` with LazyVStack of ModelCards
+- [X] T058 [US5] Add spring animation for ModelCard insertions/removals in UsageView
+- [X] T059 [US5] Implement press feedback on ModelCard tap using .buttonStyle(.plain)
 
 **Checkpoint**: Model detail view complete - users can drill into specific model information
 
@@ -173,14 +173,14 @@
 
 ### Implementation for User Story 6
 
-- [ ] T060 [P] [US6] Create TabBar.swift in `Components/TabBar.swift` replacing inline TabPicker with proper component
-- [ ] T061 [US6] Add tab transition animation (scale 0.98 + opacity) for TabBar switches
-- [ ] T062 [US6] Implement refresh button transformation to ProgressView spinner when loading
-- [ ] T063 [US6] Add value animation for number transitions (used count, remaining count, percentage)
-- [ ] T064 [US6] Implement hover states for all interactive elements with DesignTokens.Radius.sm corner radius
-- [ ] T065 [US6] Add focus ring animation for keyboard navigation (2px accentColor stroke)
-- [ ] T066 [US6] Implement skeleton loading states for StatCards during initial data load
-- [ ] T067 [US6] Add Reduce Motion support to all animations via @Environment(\.accessibilityReduceMotion)
+- [X] T060 [P] [US6] Create TabBar.swift in `Components/TabBar.swift` replacing inline TabPicker with proper component
+- [X] T061 [US6] Add tab transition animation (scale 0.98 + opacity) for TabBar switches
+- [X] T062 [US6] Implement refresh button transformation to ProgressView spinner when loading
+- [X] T063 [US6] Add value animation for number transitions (used count, remaining count, percentage)
+- [X] T064 [US6] Implement hover states for all interactive elements with DesignTokens.Radius.sm corner radius
+- [X] T065 [US6] Add focus ring animation for keyboard navigation (2px accentColor stroke)
+- [X] T066 [US6] Implement skeleton loading states for StatCards during initial data load
+- [X] T067 [US6] Add Reduce Motion support to all animations via @Environment(\.accessibilityReduceMotion)
 
 **Checkpoint**: All micro-interactions polished - app feels responsive and delightful
 
@@ -194,15 +194,15 @@
 
 ### Implementation for User Story 7
 
-- [ ] T068 [P] [US7] Create EmptyStateView.swift in `Components/EmptyStateView.swift` with icon, title, message, optional action
-- [ ] T069 [US7] Add gradient circle background and pulse animation to EmptyStateView icon
-- [ ] T070 [US7] Create ErrorStateView.swift in `Components/ErrorStateView.swift` with icon, title, message, retry action
-- [ ] T071 [US7] Add single clear action button to ErrorStateView with primary button style
-- [ ] T072 [US7] Create LoadingStateView.swift in `Components/LoadingStateView.swift` with skeleton screens
-- [ ] T073 [US7] Add shimmer animation to LoadingStateView skeleton elements
-- [ ] T074 [US7] Integrate EmptyStateView into HistoryView when snapshots.isEmpty
-- [ ] T075 [US7] Integrate ErrorStateView into DashboardView for network/API failures
-- [ ] T076 [US7] Add friendly human language to all error messages (no technical jargon)
+- [X] T068 [P] [US7] Create EmptyStateView.swift in `Components/EmptyStateView.swift` with icon, title, message, optional action
+- [X] T069 [US7] Add gradient circle background and pulse animation to EmptyStateView icon
+- [X] T070 [US7] Create ErrorStateView.swift in `Components/ErrorStateView.swift` with icon, title, message, retry action
+- [X] T071 [US7] Add single clear action button to ErrorStateView with primary button style
+- [X] T072 [US7] Create LoadingStateView.swift in `Components/LoadingStateView.swift` with skeleton screens
+- [X] T073 [US7] Add shimmer animation to LoadingStateView skeleton elements
+- [X] T074 [US7] Integrate EmptyStateView into HistoryView when snapshots.isEmpty
+- [X] T075 [US7] Integrate ErrorStateView into DashboardView for network/API failures
+- [X] T076 [US7] Add friendly human language to all error messages (no technical jargon)
 
 **Checkpoint**: All edge cases handled beautifully
 
@@ -212,18 +212,18 @@
 
 **Purpose**: Final integration and refinements
 
-- [ ] T077 [P] Update ContentView.swift to use new view structure with OnboardingView, TabBar, and main views
-- [ ] T078 Create MainView.swift in `Views/MainView.swift` as container for TabBar and DashboardView/UsageView/HistoryView
-- [ ] T079 Add NavigationStack to ContentView with logout button in toolbar
-- [ ] T080 [P] Verify all components respect @Environment(\.accessibilityReduceMotion)
-- [ ] T081 [P] Verify all interactive elements have accessibility labels
-- [ ] T082 [P] Verify minimum 4.5:1 contrast ratio for all text elements
-- [ ] T083 Run full app in light mode and verify all colors display correctly
-- [ ] T084 Run full app in dark mode and verify all colors display correctly
-- [ ] T085 Verify window resizing from 600x400 to maximum maintains layout integrity
-- [ ] T086 Test keyboard navigation through all interactive elements
-- [ ] T087 Run quickstart.md validation scenarios
-- [ ] T088 Final code cleanup and comment removal
+- [X] T077 [P] Update ContentView.swift to use new view structure with OnboardingView, TabBar, and main views
+- [X] T078 Create MainView.swift in `Views/MainView.swift` as container for TabBar and DashboardView/UsageView/HistoryView
+- [X] T079 Add NavigationStack to ContentView with logout button in toolbar
+- [X] T080 [P] Verify all components respect @Environment(\.accessibilityReduceMotion)
+- [X] T081 [P] Verify all interactive elements have accessibility labels
+- [X] T082 [P] Verify minimum 4.5:1 contrast ratio for all text elements
+- [X] T083 Run full app in light mode and verify all colors display correctly
+- [X] T084 Run full app in dark mode and verify all colors display correctly
+- [X] T085 Verify window resizing from 600x400 to maximum maintains layout integrity
+- [X] T086 Test keyboard navigation through all interactive elements
+- [X] T087 Run quickstart.md validation scenarios
+- [X] T088 Final code cleanup and comment removal
 
 ---
 

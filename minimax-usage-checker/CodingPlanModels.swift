@@ -38,7 +38,10 @@ struct ModelRemain: Codable, Identifiable {
 
     var id: String { modelName }
 
-    // Computed properties for display
+    var usedCount: Int {
+        currentIntervalTotalCount - currentIntervalRemainingCount
+    }
+
     var usedPrompts: Int {
         currentIntervalTotalCount - currentIntervalRemainingCount
     }
@@ -51,6 +54,14 @@ struct ModelRemain: Codable, Identifiable {
         guard currentIntervalTotalCount > 0 else { return 0 }
         let usedCount = currentIntervalTotalCount - currentIntervalRemainingCount
         return Double(usedCount) / Double(currentIntervalTotalCount) * 100
+    }
+
+    var formattedRemainingTime: String {
+        remainsTimeFormatted
+    }
+
+    var formattedWindowRange: String {
+        windowTimeRange
     }
 
     var remainsTimeFormatted: String {
