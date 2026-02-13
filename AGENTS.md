@@ -517,3 +517,10 @@ struct BaseResp: Codable {
 5. **MainActor**: ViewModels must be `@MainActor` since they update `@Published` properties from async contexts.
 
 6. **Timer in MainActor**: When using `Timer.scheduledTimer` inside a `@MainActor` class, wrap async calls in `Task { @MainActor ... }`.
+
+## Active Technologies
+- Swift 5.9+ + SwiftUI (native), Charts framework, Combine, UserNotifications (001-world-class-ui-ux)
+- UserDefaults (API key, snapshots) - no changes needed (001-world-class-ui-ux)
+
+## Recent Changes
+- 001-world-class-ui-ux: Added Swift 5.9+ + SwiftUI (native), Charts framework, Combine, UserNotifications
