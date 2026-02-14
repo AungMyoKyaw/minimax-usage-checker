@@ -26,6 +26,7 @@ struct ContentView: View {
                     )
                 }
             }
+            .frame(minWidth: 300, minHeight: 400)
             .navigationTitle("MiniMax Usage")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -46,6 +47,7 @@ struct ContentView: View {
             }
         }
         .animation(.appTransition(reduceMotion: reduceMotion), value: viewModel.hasAPIKey)
+        .dynamicTypeSize(.medium ... .large)
     }
 }
 

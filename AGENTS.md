@@ -551,6 +551,8 @@ struct BaseResp: Codable {
 - UserDefaults (API key, snapshots) - no changes needed (001-world-class-ui-ux)
 - Swift 5.9+ + SwiftUI, Charts, UserNotifications, Foundation, Combine (all native Apple frameworks) (002-usage-alerts)
 - UserDefaults for settings and alert history (002-usage-alerts)
+- Swift 5.9+ (Xcode 15.0+) + SwiftUI, Charts (native Apple frameworks), Combine, UserNotifications (003-compact-refined-ui)
+- UserDefaults (API key, snapshots, alert settings) (003-compact-refined-ui)
 
 ## Recent Changes
 - 001-world-class-ui-ux: Added Swift 5.9+ + SwiftUI (native), Charts framework, Combine, UserNotifications
@@ -558,6 +560,8 @@ struct BaseResp: Codable {
 ---
 
 ## 001-World-Class-UI-UX Implementation Status
+
+**Note**: All design tokens reduced for compact UI (Feature 003-compact-refined-ui). See "Design Tokens (Compact UI - 003)" section below.
 
 ### Design System
 
@@ -721,3 +725,73 @@ Configurable usage alert thresholds with per-model settings, alert history, and 
 - `{model}` - Model name
 - `{remaining}` - Remaining tokens count
 - `{percent}` - Usage percentage
+
+---
+
+## Design Tokens (Compact UI - 003)
+
+All design tokens reduced by 25-50% for compact UI (Feature 003-compact-refined-ui). See `specs/003-compact-refined-ui/migration-guide.md` for complete migration details.
+
+### Typography Scale (8 levels, 10pt-24pt)
+
+| Token | Size | Usage |
+|-------|------|-------|
+| displayLarge | 24pt | Large headings (onboarding, empty states) |
+| displayMedium | 18pt | Medium headings |
+| headingLarge | 16pt | Section headers |
+| headingMedium | 14pt | Subsection headers |
+| bodyLarge | 13pt | Primary body text |
+| bodyMedium | 12pt | Secondary body text |
+| caption | 11pt | Captions, labels (minimum readable size) |
+| captionSmall | 10pt | Small captions, tertiary text |
+
+### Spacing Scale (6 levels, 4pt-32pt)
+
+| Token | Size | Usage |
+|-------|------|-------|
+| xs | 4pt | Minimal spacing (inside buttons, list separators) |
+| sm | 6pt | Tight spacing (list items, stack spacing) |
+| md | 8pt | Standard spacing (card padding, section gaps) |
+| lg | 14pt | Comfortable spacing (between sections) |
+| xl | 24pt | Large spacing (view padding, major sections) |
+| xxl | 32pt | Extra large spacing (top-level containers) |
+
+### Border Radius (5 levels, 4pt-full)
+
+| Token | Size | Usage |
+|-------|------|-------|
+| sm | 4pt | Buttons, small elements |
+| md | 6pt | Cards, inputs |
+| lg | 10pt | Large cards, containers |
+| xl | 16pt | Unused (reserved) |
+| full | 9999pt | Circular elements (progress rings, status dots) |
+
+### Shadows (4 levels, 2pt-12pt blur)
+
+| Token | Blur | Y-Offset | Opacity | Usage |
+|-------|------|----------|---------|-------|
+| elevation1 | 2pt | 1pt | 0.02 | Subtle depth (cards) |
+| elevation2 | 6pt | 2pt | 0.04 | Moderate depth (tooltips) |
+| elevation3 | 12pt | 4pt | 0.06 | Strong depth (modals) |
+| focus | 8pt | 0pt | 0.15 | Keyboard focus rings |
+
+### Accessibility
+
+**Touch Targets**: Minimum 44pt enforced on:
+- TabBar (line 65: `.frame(minHeight: 44)`)
+- ModelCard expand button (line 44: `.frame(minHeight: 44)`)
+
+**Font Size**: Minimum 11pt (caption token), 10pt for tertiary text only
+
+**Dynamic Type**: Capped at `.medium ... .large` range (ContentView.swift line 50)
+
+**Color Contrast**: All text meets WCAG AA standards (TextPrimary/TextSecondary on SurfacePrimary/SurfaceSecondary backgrounds)
+
+**Reduce Motion**: All animations respect system preference via `@Environment(\.accessibilityReduceMotion)`
+
+### Window Constraints
+
+- **Minimum size**: 300x400pt (ContentView.swift line 29)
+- **Default size**: 400x600pt (minimax_usage_checkerApp.swift line 17)
+- **Compact goal**: Display 5+ model cards at 800x600 without scrolling
+

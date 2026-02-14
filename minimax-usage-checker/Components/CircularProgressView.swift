@@ -3,8 +3,8 @@ import SwiftUI
 struct CircularProgressView: View {
     let progress: Double
     let status: UsageStatus
-    var size: CGSize = CGSize(width: 120, height: 120)
-    var lineWidth: CGFloat = 8
+    var size: CGSize = CGSize(width: 80, height: 80)
+    var lineWidth: CGFloat = 6
     var showPercentage: Bool = true
 
     @Environment(\.accessibilityReduceMotion) var reduceMotion

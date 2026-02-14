@@ -14,5 +14,7 @@ struct minimax_usage_checkerApp: App {
             ContentView()
                 .preferredColorScheme(.dark)
         }
+        .windowStyle(.hiddenTitleBar)
+        .defaultSize(width: 400, height: 600)
     }
 }

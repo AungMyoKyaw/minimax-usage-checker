@@ -9,7 +9,7 @@ struct AlertsMainView: View {
                 Button(action: { selectedAlertTab = 0 }) {
                     HStack(spacing: DesignTokens.Spacing.sm) {
                         Image(systemName: "gear")
-                            .font(.system(size: 14))
+                            .font(DesignTokens.Typography.bodyMedium)
                         Text("Settings")
                             .font(DesignTokens.Typography.bodyMedium)
                             .fontWeight(selectedAlertTab == 0 ? .semibold : .regular)
@@ -28,7 +28,7 @@ struct AlertsMainView: View {
                 Button(action: { selectedAlertTab = 1 }) {
                     HStack(spacing: DesignTokens.Spacing.sm) {
                         Image(systemName: "clock.arrow.circlepath")
-                            .font(.system(size: 14))
+                            .font(DesignTokens.Typography.bodyMedium)
                         Text("History")
                             .font(DesignTokens.Typography.bodyMedium)
                             .fontWeight(selectedAlertTab == 1 ? .semibold : .regular)

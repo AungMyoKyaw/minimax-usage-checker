@@ -16,6 +16,12 @@ struct UsageView: View {
                 } else {
                     ForEach(sortedModels) { model in
                         ModelCard(model: model)
+                            .listRowInsets(EdgeInsets(
+                                top: DesignTokens.Spacing.sm,
+                                leading: DesignTokens.Spacing.md,
+                                bottom: DesignTokens.Spacing.sm,
+                                trailing: DesignTokens.Spacing.md
+                            ))
                     }
                 }
             }

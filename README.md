@@ -111,15 +111,58 @@ minimax-usage-checker/
 
 ### Design System
 
-The app implements a comprehensive design system:
+The app implements a comprehensive compact design system optimized for information density while maintaining readability and accessibility:
+
+#### Compact Design Tokens (Feature 003)
+
+**Typography Scale** (25% reduction from original):
+- `displayLarge`: 24pt (large headings, icons)
+- `displayMedium`: 18pt (medium headings)
+- `headingLarge`: 16pt (section headers)
+- `headingMedium`: 14pt (subsection headers)
+- `bodyLarge`: 13pt (emphasized body text)
+- `bodyMedium`: 12pt (standard body text)
+- `caption`: 11pt (labels, secondary text)
+- `captionSmall`: 10pt (tertiary text, metadata)
+
+**Spacing Scale** (37% reduction):
+- `xs`: 4pt (minimal spacing, button padding)
+- `sm`: 6pt (tight grouping)
+- `md`: 8pt (default spacing)
+- `lg`: 14pt (generous spacing)
+- `xl`: 24pt (section separators)
+- `xxl`: 32pt (major sections)
+
+**Border Radius** (33% reduction):
+- `sm`: 4pt (small elements, pills)
+- `md`: 6pt (buttons, inputs)
+- `lg`: 10pt (cards, panels)
+- `xl`: 16pt (large containers, unused)
+- `full`: 9999pt (circles, fully rounded)
+
+**Shadows** (50% reduction):
+- `elevation1`: 2pt blur, 1pt offset, 0.02 opacity (subtle depth)
+- `elevation2`: 6pt blur, 2pt offset, 0.04 opacity (moderate depth)
+- `elevation3`: 12pt blur, 4pt offset, 0.06 opacity (strong emphasis)
+- `focus`: 8pt blur, 0.15 opacity (focus states)
+
+**Color System**:
 
 | Category | Components |
 |----------|------------|
 | Colors | Surface (primary/secondary/tertiary/hover), Border (subtle/emphasis/focus), Text (primary/secondary/tertiary/disabled), Accent (primary/secondary), Usage (safe/warning/critical) |
-| Spacing | xs, sm, md, lg, xl, xxl |
-| Radius | sm, md, lg, xl, full |
-| Typography | displayLarge, displayMedium, headingLarge, headingMedium, bodyLarge, bodyMedium, caption, captionSmall |
-| Shadows | sm, md, lg, focus |
+
+**Accessibility**:
+- Minimum touch targets: 44pt (maintained despite visual size reductions)
+- Minimum font size: 11pt (caption) for readability
+- Color contrast: WCAG AA compliant status indicators
+- Reduce motion support: All animations respect `@Environment(\.accessibilityReduceMotion)`
+- Dynamic type: Capped at `.medium` to `.large` range for layout stability
+
+**Window Constraints**:
+- Minimum size: 300×400
+- Default size: 400×600
+- Responsive layouts adapt to window resize
 
 ### Key Components
 

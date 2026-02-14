@@ -19,11 +19,11 @@ struct StatsOverview: View {
 
     var body: some View {
         let columns = [
-            GridItem(.flexible(), spacing: DesignTokens.Spacing.md),
-            GridItem(.flexible(), spacing: DesignTokens.Spacing.md)
+            GridItem(.flexible(), spacing: DesignTokens.Spacing.lg),
+            GridItem(.flexible(), spacing: DesignTokens.Spacing.lg)
         ]
 
-        LazyVGrid(columns: columns, spacing: DesignTokens.Spacing.md) {
+        LazyVGrid(columns: columns, spacing: DesignTokens.Spacing.lg) {
             StatCard(
                 title: "Total Used",
                 value: "\(totalUsed.formatted())",

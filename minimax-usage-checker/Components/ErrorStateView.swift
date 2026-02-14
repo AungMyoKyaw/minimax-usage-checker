@@ -14,7 +14,7 @@ struct ErrorStateView: View {
                     .frame(width: 100, height: 100)
 
                 Image(systemName: type.icon)
-                    .font(.system(size: 40))
+                    .font(.system(size: 32))
                     .foregroundStyle(DesignTokens.Colors.usageCritical)
             }
 

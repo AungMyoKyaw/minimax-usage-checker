@@ -148,7 +148,7 @@ struct SnoozeOptionsView: View {
             }
             .buttonStyle(.bordered)
         }
-        .padding(30)
+        .padding(DesignTokens.Spacing.xl)
         .frame(width: 300)
     }
 }

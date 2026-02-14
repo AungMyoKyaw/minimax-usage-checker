@@ -8,7 +8,7 @@ struct ModelStatusList: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
+        VStack(alignment: .leading, spacing: DesignTokens.Spacing.sm) {
             Text("Model Status")
                 .font(DesignTokens.Typography.headingMedium)
                 .foregroundStyle(.primary)

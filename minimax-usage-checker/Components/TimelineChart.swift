@@ -42,7 +42,7 @@ struct TimelineChart: View {
                         AxisValueLabel()
                     }
                 }
-                .frame(height: 200)
+                .frame(height: 180)
             }
         }
         .padding(DesignTokens.Spacing.md)

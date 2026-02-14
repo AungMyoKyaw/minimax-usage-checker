@@ -30,7 +30,7 @@ struct OnboardingView: View {
                         .frame(width: 120, height: 120)
 
                     Image(systemName: "brain.head.profile")
-                        .font(.system(size: 48))
+                        .font(DesignTokens.Typography.displayLarge)
                         .foregroundStyle(
                             LinearGradient(
                                 colors: [DesignTokens.Colors.accentPrimary, DesignTokens.Colors.accentPrimary.opacity(0.6)],
@@ -51,7 +51,7 @@ struct OnboardingView: View {
                 }
             }
 
-            VStack(spacing: DesignTokens.Spacing.lg) {
+            VStack(spacing: DesignTokens.Spacing.md) {
                 ZStack {
                     if apiKey.isEmpty {
                         Text("API Key")
