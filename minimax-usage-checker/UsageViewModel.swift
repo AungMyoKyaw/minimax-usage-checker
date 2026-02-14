@@ -2,7 +2,8 @@ import Foundation
 import Combine
 import UserNotifications
 
-struct SnapshotData: Codable {
+struct SnapshotData: Codable, Identifiable {
+    let id = UUID()
     let timestamp: Date
     let modelName: String
     let windowStartTime: Int64
@@ -54,6 +55,7 @@ enum TimeRange: String, CaseIterable {
 class UsageViewModel: ObservableObject {
     @Published var modelRemains: [ModelRemain] = []
     @Published var isLoading: Bool = false
+    @Published var isLoadingInitially: Bool = true
     @Published var errorMessage: String?
     @Published var apiKey: String = ""
     @Published var selectedTimeRange: TimeRange = .week
@@ -163,6 +165,7 @@ class UsageViewModel: ObservableObject {
         }
 
         isLoading = false
+        isLoadingInitially = false
         loadFilteredSnapshots()
     }
 
