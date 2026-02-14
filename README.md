@@ -63,20 +63,63 @@ Your API key is stored securely in local storage and never leaves your device.
 
 ```
 minimax-usage-checker/
-├── minimax_usage_checkerApp.swift    # App entry point
-├── ContentView.swift                 # Main UI with tab navigation
-├── UsageViewModel.swift              # Business logic & state management
-├── MiniMaxAPIService.swift          # API communication layer
-├── CodingPlanModels.swift            # Data models
-├── NotificationManager.swift        # Local notifications
-└── Assets.xcassets/                 # App icons & colors
+├── minimax-usage-checker/
+│   ├── minimax_usage_checkerApp.swift    # App entry point
+│   ├── ContentView.swift                  # Root view with navigation
+│   ├── UsageViewModel.swift               # Business logic & state management
+│   ├── MiniMaxAPIService.swift            # API communication layer
+│   ├── CodingPlanModels.swift            # Data models
+│   ├── NotificationManager.swift          # Local notifications
+│   ├── DesignSystem/                      # Design system tokens & types
+│   │   ├── DesignTokens.swift             # Colors, spacing, typography
+│   │   ├── Animations.swift               # Animation extensions
+│   │   ├── UsageStatus.swift              # Safe/Warning/Critical states
+│   │   ├── EmptyStateType.swift           # Empty state enums
+│   │   └── ErrorStateType.swift           # Error state enums
+│   ├── Views/                            # Main app views
+│   │   ├── MainView.swift                 # Tab container
+│   │   ├── DashboardView.swift            # Dashboard overview
+│   │   ├── UsageView.swift                # Per-model usage details
+│   │   ├── HistoryView.swift              # Historical data
+│   │   └── OnboardingView.swift           # API key entry
+│   ├── Components/                        # Reusable UI components
+│   │   ├── CircularProgressView.swift      # Circular progress indicator
+│   │   ├── LinearProgressView.swift       # Linear progress bar
+│   │   ├── ModelCard.swift                # Model detail card
+│   │   ├── ModelStatusList.swift          # List of model statuses
+│   │   ├── ModelStatusRow.swift           # Single model status row
+│   │   ├── PrimaryUsageIndicator.swift    # Main usage display
+│   │   ├── StatCard.swift                 # Statistics card
+│   │   ├── StatsOverview.swift            # Stats overview panel
+│   │   ├── TabBar.swift                   # Tab navigation bar
+│   │   ├── TimeRangePicker.swift           # Time range selector
+│   │   ├── TimelineChart.swift             # Usage timeline chart
+│   │   ├── EmptyStateView.swift            # Empty state display
+│   │   ├── ErrorStateView.swift            # Error state display
+│   │   ├── LoadingStateView.swift         # Loading spinner
+│   │   └── TooltipView.swift               # Tooltip component
+│   └── Assets.xcassets/                   # App icons & colors
+├── minimax-usage-checkerTests/             # Unit tests
+└── minimax-usage-checkerUITests/          # UI tests
 ```
 
 ### Architecture Pattern: MVVM
 
 - **Model**: `CodingPlanModels.swift` - Data structures for API responses
-- **View**: `ContentView.swift` - SwiftUI views (Dashboard, Usage, History)
+- **View**: SwiftUI views in `Views/` and `Components/` folders
 - **ViewModel**: `UsageViewModel.swift` - Business logic, state management, data transformation
+
+### Design System
+
+The app implements a comprehensive design system:
+
+| Category | Components |
+|----------|------------|
+| Colors | Surface (primary/secondary/tertiary/hover), Border (subtle/emphasis/focus), Text (primary/secondary/tertiary/disabled), Accent (primary/secondary), Usage (safe/warning/critical) |
+| Spacing | xs, sm, md, lg, xl, xxl |
+| Radius | sm, md, lg, xl, full |
+| Typography | displayLarge, displayMedium, headingLarge, headingMedium, bodyLarge, bodyMedium, caption, captionSmall |
+| Shadows | sm, md, lg, focus |
 
 ### Key Components
 
@@ -104,7 +147,7 @@ struct CodingPlanResponse: Codable {
 }
 
 struct ModelRemain: Codable, Identifiable {
-    let startTime: Int64             // Window start (Unix ms)
+    let startTime: Int64              // Window start (Unix ms)
     let endTime: Int64                // Window end (Unix ms)
     let remainsTime: Int64            // Remaining time (ms)
     let currentIntervalTotalCount:    // Total prompts in window
@@ -137,13 +180,48 @@ Configure in `NotificationManager.swift`:
 
 ```swift
 private let warningThreshold: Double = 10.0   // 90% usage
-private let criticalThreshold: Double = 5.0    // 95% usage
+private let criticalThreshold: Double = 5.0  // 95% usage
 ```
 
 ## Requirements
 
 - **Minimum macOS**: 12.0 (Monterey)
-- **Frameworks**: SwiftUI, Charts, UserNotifications
+- **Frameworks**: SwiftUI, Charts, UserNotifications, Combine
+
+## Building & Running
+
+### Using Xcode (Recommended)
+
+```bash
+# Open project in Xcode
+open minimax-usage-checker.xcodeproj
+
+# Build the project (Cmd + B in Xcode)
+# Run the app (Cmd + R in Xcode)
+```
+
+### Using xcodebuild (Command Line)
+
+```bash
+# Build for macOS (Debug)
+xcodebuild -project minimax-usage-checker.xcodeproj -scheme minimax-usage-checker -configuration Debug build
+
+# Build for release
+xcodebuild -project minimax-usage-checker.xcodeproj -scheme minimax-usage-checker -configuration Release build
+
+# Build without code signing (for CI)
+xcodebuild -project minimax-usage-checker.xcodeproj -scheme minimax-usage-checker -configuration Debug build CODE_SIGNING_ALLOWED=NO
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+xcodebuild test -project minimax-usage-checker.xcodeproj -scheme minimax-usage-checker
+
+# Run unit tests only
+xcodebuild test -project minimax-usage-checker.xcodeproj -scheme minimax-usage-checker -only-testing:minimax_usage_checkerTests
+```
 
 ## License
 
