@@ -186,19 +186,7 @@ class UsageViewModel: ObservableObject {
     }
     
     func loadFilteredSnapshots() {
-        let startDate: Date
-        switch selectedTimeRange {
-        case .today:
-            startDate = Calendar.current.startOfDay(for: Date())
-        case .week:
-            startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-        case .month:
-            startDate = Calendar.current.date(byAdding: .month, value: -1, to: Date()) ?? Date()
-        case .all:
-            startDate = Date.distantPast
-        }
-        
-        snapshots = snapshots.filter { $0.timestamp >= startDate }
+        objectWillChange.send()
     }
     
     var filteredSnapshots: [SnapshotData] {

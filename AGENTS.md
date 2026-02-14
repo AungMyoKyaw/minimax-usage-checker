@@ -549,6 +549,8 @@ struct BaseResp: Codable {
 ## Active Technologies
 - Swift 5.9+ + SwiftUI (native), Charts framework, Combine, UserNotifications (001-world-class-ui-ux)
 - UserDefaults (API key, snapshots) - no changes needed (001-world-class-ui-ux)
+- Swift 5.9+ + SwiftUI, Charts, UserNotifications, Foundation, Combine (all native Apple frameworks) (002-usage-alerts)
+- UserDefaults for settings and alert history (002-usage-alerts)
 
 ## Recent Changes
 - 001-world-class-ui-ux: Added Swift 5.9+ + SwiftUI (native), Charts framework, Combine, UserNotifications
@@ -660,11 +662,62 @@ GitHub Actions workflow (`.github/workflows/build.yml`):
 
 The project uses `PBXFileSystemSynchronizedRootGroup` for automatic file inclusion. SourceKit may show temporary errors until Xcode fully indexes the new files. Run a clean build to resolve.
 
-### Known Gaps vs Spec
+---
 
-All design tokens from `specs/001-world-class-ui-ux/contracts/design-tokens.md` have been implemented:
-- ✅ All surface, border, text, and accent colors
-- ✅ Shadow enum with shadow-sm, shadow-md, shadow-lg, shadow-focus
-- ✅ Radius.full (9999px)
+## 002-Usage-Alerts Implementation Status
 
-No known gaps at this time.
+### Overview
+Configurable usage alert thresholds with per-model settings, alert history, and snooze functionality.
+
+### Feature Components
+
+**Core Models** (`minimax-usage-checker/` folder):
+| File | Purpose |
+|------|---------|
+| `AlertModels.swift` | AlertType, SnoozeDuration, ValidationError enums |
+| `AlertSettings.swift` | AlertSettings struct with Codable |
+| `ModelAlertSettings.swift` | Per-model threshold override struct |
+| `AlertHistoryEntry.swift` | Alert history record struct |
+| `AlertSettingsManager.swift` | Settings persistence manager (singleton) |
+| `AlertHistoryManager.swift` | History storage manager (singleton) |
+
+**UI Components** (`Views/` folder):
+| File | Purpose |
+|------|---------|
+| `AlertSettingsView.swift` | Alert settings UI |
+| `AlertHistoryView.swift` | Alert history UI |
+| `AlertsMainView.swift` | Combined alerts view with tabs |
+| `CustomMessageView.swift` | Custom message template editor |
+| `PerModelSettingsView.swift` | Per-model threshold overrides |
+| `SnoozeOptionsView.swift` | Snooze duration picker |
+
+### User Stories
+
+| US | Priority | Description | Status |
+|----|----------|-------------|--------|
+| US1 | P1 | Configure Alert Thresholds | ✅ Complete |
+| US2 | P2 | Per-Model Configuration | ✅ Complete |
+| US3 | P3 | Alert History | ✅ Complete |
+| US4 | P3 | Snooze Alerts | ✅ Complete |
+| US5 | P4 | Custom Alert Messages | ✅ Complete |
+
+### Key Implementation Details
+
+- **AlertSettingsManager**: `@MainActor` singleton with `@Published` settings
+- **AlertHistoryManager**: Singleton managing history array with auto-prune at 100 entries
+- **NotificationManager**: Extended to use configurable thresholds from AlertSettingsManager
+- **Snooze durations**: 15min, 1hr, 4hr, 24hr
+- **Validation**: Warning must exceed Critical threshold
+
+### UserDefaults Keys
+
+| Key | Type | Purpose |
+|-----|------|---------|
+| `alert_settings` | `Data` (JSON encoded) | Alert configuration |
+| `alert_history` | `Data` (JSON encoded) | Alert history (max 100 entries) |
+
+### Custom Message Variables
+
+- `{model}` - Model name
+- `{remaining}` - Remaining tokens count
+- `{percent}` - Usage percentage

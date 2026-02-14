@@ -24,6 +24,8 @@ struct MainView: View {
                     UsageView(viewModel: viewModel)
                 case .history:
                     HistoryView(viewModel: viewModel)
+                case .alerts:
+                    AlertsMainView()
                 }
             }
             .transition(

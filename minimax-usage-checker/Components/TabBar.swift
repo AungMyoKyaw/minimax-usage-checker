@@ -4,12 +4,14 @@ enum TabIdentifier: String, CaseIterable {
     case dashboard
     case usage
     case history
+    case alerts
 
     var label: String {
         switch self {
         case .dashboard: return "Dashboard"
         case .usage: return "Usage"
         case .history: return "History"
+        case .alerts: return "Alerts"
         }
     }
 
@@ -18,6 +20,7 @@ enum TabIdentifier: String, CaseIterable {
         case .dashboard: return "chart.bar.fill"
         case .usage: return "cpu"
         case .history: return "clock.arrow.circlepath"
+        case .alerts: return "bell.fill"
         }
     }
 }
