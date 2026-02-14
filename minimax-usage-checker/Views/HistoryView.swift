@@ -7,9 +7,6 @@ struct HistoryView: View {
         ScrollView {
             VStack(spacing: DesignTokens.Spacing.lg) {
                 TimeRangePicker(selectedRange: $viewModel.selectedTimeRange)
-                    .onChange(of: viewModel.selectedTimeRange) {
-                        viewModel.loadFilteredSnapshots()
-                    }
 
                 TimelineChart(data: viewModel.dailyUsageData)
 

@@ -6,10 +6,6 @@ class NotificationManager {
     
     private let notificationCenter = UNUserNotificationCenter.current()
     
-    // Notification thresholds (percentage)
-    private let warningThreshold: Double = 10.0
-    private let criticalThreshold: Double = 5.0
-    
     // Track which alerts have been sent to avoid spam
     private var alertsSent: Set<String> = []
     
@@ -24,12 +20,24 @@ class NotificationManager {
     }
     
     func checkAndNotify(modelRemains: [ModelRemain]) {
+        let settings = AlertSettingsManager.shared.settings
+        
         for model in modelRemains {
-            checkModelUsage(model)
+            checkModelUsage(model, settings: settings)
         }
     }
     
-    private func checkModelUsage(_ model: ModelRemain) {
+    private func checkModelUsage(_ model: ModelRemain, settings: AlertSettings) {
+        // Check if snoozed
+        if settings.isSnoozedCurrently {
+            return
+        }
+        
+        // Check if model is enabled
+        if !AlertSettingsManager.shared.isModelEnabled(model.modelName) {
+            return
+        }
+        
         let percentage = model.usagePercentage
         let modelKey = "\(model.modelName)_\(model.windowTimeRange)"
         
@@ -38,25 +46,35 @@ class NotificationManager {
             return
         }
         
-        if percentage >= (100 - warningThreshold) && percentage < (100 - criticalThreshold) {
-            // Warning: between 85-95% used (15-5% remaining)
-            sendWarningNotification(for: model)
+        // Get thresholds for this model
+        let thresholds = AlertSettingsManager.shared.getThreshold(for: model.modelName)
+        
+        if percentage >= thresholds.critical {
+            // Critical alert
+            sendCriticalNotification(for: model, settings: settings)
             alertsSent.insert(modelKey)
-        } else if percentage >= (100 - criticalThreshold) {
-            // Critical: 95%+ used (5% or less remaining)
-            sendCriticalNotification(for: model)
+            recordAlert(model: model, alertType: .critical)
+        } else if percentage >= thresholds.warning {
+            // Warning alert
+            sendWarningNotification(for: model, settings: settings)
             alertsSent.insert(modelKey)
+            recordAlert(model: model, alertType: .warning)
         }
     }
     
-    private func sendWarningNotification(for model: ModelRemain) {
+    private func sendWarningNotification(for model: ModelRemain, settings: AlertSettings) {
         let content = UNMutableNotificationContent()
         content.title = "⚠️ MiniMax Usage Warning"
-        content.body = "\(model.modelName): Only \(model.remainsTimeFormatted) remaining (\(String(format: "%.0f", 100 - model.usagePercentage))% left)"
+        
+        let message = settings.effectiveWarningMessage
+            .replacingOccurrences(of: "{model}", with: model.modelName)
+            .replacingOccurrences(of: "{remaining}", with: model.remainsTimeFormatted)
+            .replacingOccurrences(of: "{percent}", with: String(format: "%.0f", 100 - model.usagePercentage))
+        content.body = message
         content.sound = .default
         
         let request = UNNotificationRequest(
-            identifier: "warning_\(model.modelName)",
+            identifier: "warning_\(model.modelName)_\(model.windowTimeRange)",
             content: content,
             trigger: nil
         )
@@ -64,19 +82,34 @@ class NotificationManager {
         notificationCenter.add(request)
     }
     
-    private func sendCriticalNotification(for model: ModelRemain) {
+    private func sendCriticalNotification(for model: ModelRemain, settings: AlertSettings) {
         let content = UNMutableNotificationContent()
         content.title = "🚨 MiniMax Credits Low!"
-        content.body = "\(model.modelName): Only \(model.remainsTimeFormatted) remaining! Time to top up."
+        
+        let message = settings.effectiveCriticalMessage
+            .replacingOccurrences(of: "{model}", with: model.modelName)
+            .replacingOccurrences(of: "{remaining}", with: model.remainsTimeFormatted)
+            .replacingOccurrences(of: "{percent}", with: String(format: "%.0f", 100 - model.usagePercentage))
+        content.body = message
         content.sound = .defaultCritical
         
         let request = UNNotificationRequest(
-            identifier: "critical_\(model.modelName)",
+            identifier: "critical_\(model.modelName)_\(model.windowTimeRange)",
             content: content,
             trigger: nil
         )
         
         notificationCenter.add(request)
+    }
+    
+    private func recordAlert(model: ModelRemain, alertType: AlertType) {
+        Task { @MainActor in
+            AlertHistoryManager.shared.addEntry(
+                modelName: model.modelName,
+                usagePercentage: model.usagePercentage,
+                alertType: alertType
+            )
+        }
     }
     
     func clearAlerts() {
