@@ -28,6 +28,7 @@ struct TabBar: View {
     let onRefresh: () -> Void
 
     @Environment(\.accessibilityReduceMotion) var reduceMotion
+    @State private var hoveredTab: TabIdentifier?
 
     var body: some View {
         HStack(spacing: DesignTokens.Spacing.sm) {
@@ -42,16 +43,27 @@ struct TabBar: View {
                             .font(DesignTokens.Typography.bodyMedium)
                             .fontWeight(selectedTab == tab ? .semibold : .regular)
                     }
-                    .foregroundStyle(selectedTab == tab ? .white : DesignTokens.Colors.textSecondary)
+                    .foregroundStyle(
+                        selectedTab == tab ? .white :
+                        hoveredTab == tab ? DesignTokens.Colors.textPrimary :
+                        DesignTokens.Colors.textSecondary
+                    )
                     .padding(.vertical, 10)
                     .padding(.horizontal, 20)
                     .background(
                         RoundedRectangle(cornerRadius: DesignTokens.Radius.sm)
-                            .fill(selectedTab == tab ? DesignTokens.Colors.accentPrimary : Color.clear)
+                            .fill(
+                                selectedTab == tab ? DesignTokens.Colors.accentPrimary :
+                                hoveredTab == tab ? DesignTokens.Colors.surfaceHover :
+                                Color.clear
+                            )
                     )
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
+                .onHover { isHovered in
+                    hoveredTab = isHovered ? tab : nil
+                }
                 .accessibilityLabel("\(tab.label) tab")
                 .accessibilityValue(selectedTab == tab ? "Selected" : "Not selected")
                 .accessibilityHint("Selects \(tab.label) view")
@@ -72,6 +84,7 @@ struct TabBar: View {
             .buttonStyle(.plain)
             .padding(10)
             .disabled(isLoading)
+            .opacity(isLoading ? 0.5 : 1.0)
             .accessibilityLabel("Refresh data")
         }
         .padding(.horizontal, DesignTokens.Spacing.md)

@@ -10,6 +10,13 @@ struct StatsOverview: View {
         UsageStatus(percentage: avgUsage)
     }
 
+    var remainingStatus: UsageStatus {
+        let remainingPercentage = totalRemaining > 0 
+            ? (Double(totalRemaining) / Double(totalUsed + totalRemaining)) * 100 
+            : 100
+        return UsageStatus(percentage: remainingPercentage)
+    }
+
     var body: some View {
         let columns = [
             GridItem(.flexible(), spacing: DesignTokens.Spacing.md),
@@ -30,7 +37,7 @@ struct StatsOverview: View {
                 value: "\(totalRemaining.formatted())",
                 subtitle: "prompts",
                 icon: "hourglass",
-                status: UsageStatus(percentage: 100 - (overallStatus == .critical ? 95 : (overallStatus == .warning ? 80 : 50)))
+                status: remainingStatus
             )
 
             StatCard(

@@ -12,6 +12,7 @@ struct minimax_usage_checkerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.dark)
         }
     }
 }

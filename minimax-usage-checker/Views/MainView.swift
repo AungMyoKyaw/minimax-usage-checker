@@ -13,8 +13,8 @@ struct MainView: View {
                 isLoading: viewModel.isLoading,
                 onRefresh: { Task { await viewModel.fetchUsage() } }
             )
-            .padding(.horizontal, DesignTokens.Spacing.lg)
             .padding(.top, DesignTokens.Spacing.md)
+            .frame(maxWidth: .infinity)
 
             Group {
                 switch selectedTab {

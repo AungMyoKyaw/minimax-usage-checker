@@ -63,11 +63,39 @@ xcodebuild test -project minimax-usage-checker.xcodeproj -scheme minimax-usage-c
 minimax-usage-checker/
 ├── minimax-usage-checker/
 │   ├── minimax_usage_checkerApp.swift    # App entry point (@main)
-│   ├── ContentView.swift                 # All SwiftUI views (main content + subviews)
+│   ├── ContentView.swift                 # Root view with navigation
 │   ├── UsageViewModel.swift              # ViewModel (business logic, state, persistence)
 │   ├── MiniMaxAPIService.swift           # API layer (singleton)
 │   ├── CodingPlanModels.swift            # Data models (Codable structs)
 │   ├── NotificationManager.swift         # Local notifications (singleton)
+│   ├── DesignSystem/                     # Design tokens & types
+│   │   ├── DesignTokens.swift            # Colors, spacing, typography, shadows
+│   │   ├── Animations.swift              # Animation extensions
+│   │   ├── UsageStatus.swift             # Safe/Warning/Critical states
+│   │   ├── EmptyStateType.swift          # Enum for empty states
+│   │   └── ErrorStateType.swift          # Enum for error states
+│   ├── Views/                            # Main app views
+│   │   ├── MainView.swift                # Tab container
+│   │   ├── DashboardView.swift            # Dashboard overview
+│   │   ├── UsageView.swift               # Per-model usage details
+│   │   ├── HistoryView.swift             # Historical data
+│   │   └── OnboardingView.swift          # API key entry
+│   ├── Components/                       # Reusable UI components
+│   │   ├── CircularProgressView.swift    # Circular progress indicator
+│   │   ├── LinearProgressView.swift      # Linear progress bar
+│   │   ├── ModelCard.swift               # Model detail card
+│   │   ├── ModelStatusList.swift         # List of model statuses
+│   │   ├── ModelStatusRow.swift           # Single model status row
+│   │   ├── PrimaryUsageIndicator.swift   # Main usage display
+│   │   ├── StatCard.swift                # Statistics card
+│   │   ├── StatsOverview.swift           # Stats overview panel
+│   │   ├── TabBar.swift                  # Tab navigation bar
+│   │   ├── TimeRangePicker.swift         # Time range selector
+│   │   ├── TimelineChart.swift           # Usage timeline chart
+│   │   ├── EmptyStateView.swift          # Empty state display
+│   │   ├── ErrorStateView.swift          # Error state display
+│   │   ├── LoadingStateView.swift        # Loading spinner
+│   │   └── TooltipView.swift             # Tooltip component
 │   ├── minimax-usage-checker.entitlements # App sandbox config
 │   └── Assets.xcassets/                  # App icons & colors
 ├── minimax-usage-checkerTests/
@@ -534,17 +562,20 @@ struct BaseResp: Codable {
 **Implemented** (`DesignSystem/` folder):
 | File | Status | Notes |
 |------|--------|-------|
-| `DesignTokens.swift` | ⚠️ Partial | Missing: surfaceHover, borderFocus, text colors, accent colors, shadow tokens |
+| `DesignTokens.swift` | ✅ Complete | All colors, spacing, typography, shadows implemented |
 | `Animations.swift` | ✅ Complete | All animation extensions implemented |
 | `UsageStatus.swift` | ✅ Complete | Safe/Warning/Critical states |
 | `EmptyStateType.swift` | ✅ Complete | Enum for empty states |
 | `ErrorStateType.swift` | ✅ Complete | Enum for error states |
 
-**Missing Color Assets** (`Assets.xcassets/Colors/`):
-- `surfaceHover.colorset` - needed for hover states
-- `borderFocus.colorset` - needed for focus rings
-- `textPrimary.colorset`, `textSecondary.colorset`, `textTertiary.colorset`, `textDisabled.colorset`
-- `accentPrimary.colorset`, `accentSecondary.colorset`
+**Color Assets** (`Assets.xcassets/Colors/`):
+| Color | Purpose |
+|-------|---------|
+| `UsageSafe`, `UsageWarning`, `UsageCritical` | Usage status indicators |
+| `SurfacePrimary`, `SurfaceSecondary`, `SurfaceTertiary`, `SurfaceHover` | Background surfaces |
+| `BorderSubtle`, `BorderEmphasis`, `BorderFocus` | Border/stroke colors |
+| `TextPrimary`, `TextSecondary`, `TextTertiary`, `TextDisabled` | Text hierarchy |
+| `AccentPrimary`, `AccentSecondary` | Accent colors |
 
 ### Components
 
@@ -585,7 +616,7 @@ struct BaseResp: Codable {
 ```
 minimax-usage-checker/
 ├── DesignSystem/           # Design tokens & types
-│   ├── DesignTokens.swift   # ⚠️ Partial - needs more color/shadow tokens
+│   ├── DesignTokens.swift   # ✅ Complete - colors, spacing, typography, shadows
 │   ├── Animations.swift     # ✅
 │   ├── UsageStatus.swift    # ✅
 │   ├── EmptyStateType.swift # ✅
@@ -594,8 +625,18 @@ minimax-usage-checker/
 │   ├── CircularProgressView.swift
 │   ├── LinearProgressView.swift
 │   ├── ModelCard.swift
+│   ├── ModelStatusList.swift
+│   ├── ModelStatusRow.swift
+│   ├── PrimaryUsageIndicator.swift
+│   ├── StatCard.swift
+│   ├── StatsOverview.swift
 │   ├── TabBar.swift
-│   └── ... (11 total)
+│   ├── TimeRangePicker.swift
+│   ├── TimelineChart.swift
+│   ├── EmptyStateView.swift
+│   ├── ErrorStateView.swift
+│   ├── LoadingStateView.swift
+│   └── TooltipView.swift
 ├── Views/                  # Main app views
 │   ├── DashboardView.swift
 │   ├── UsageView.swift
@@ -603,9 +644,17 @@ minimax-usage-checker/
 │   ├── MainView.swift
 │   └── OnboardingView.swift
 ├── Assets.xcassets/
-│   └── Colors/             # ⚠️ Missing: surfaceHover, borderFocus, text*, accent*
+│   └── Colors/             # ✅ All design tokens colors implemented
 └── ...
 ```
+
+### CI/CD
+
+GitHub Actions workflow (`.github/workflows/build.yml`):
+- Runs on push to `master` branch
+- Uses `macos-latest` runner
+- Builds with `CODE_SIGNING_ALLOWED=NO`
+- Uploads build artifact for 7 days
 
 ### LSP/Tooling Note
 
@@ -613,11 +662,9 @@ The project uses `PBXFileSystemSynchronizedRootGroup` for automatic file inclusi
 
 ### Known Gaps vs Spec
 
-1. **DesignTokens.swift** needs additions per `specs/001-world-class-ui-ux/contracts/design-tokens.md`:
-   - Add `surfaceHover`, `borderFocus` colors
-   - Add `textPrimary`, `textSecondary`, `textTertiary`, `textDisabled` colors
-   - Add `accentPrimary`, `accentSecondary` colors
-   - Add `Shadow` enum with `shadow-sm`, `shadow-md`, `shadow-lg`, `shadow-focus`
-   - Add `Radius.full` (9999px)
+All design tokens from `specs/001-world-class-ui-ux/contracts/design-tokens.md` have been implemented:
+- ✅ All surface, border, text, and accent colors
+- ✅ Shadow enum with shadow-sm, shadow-md, shadow-lg, shadow-focus
+- ✅ Radius.full (9999px)
 
-2. **Assets.xcassets** needs corresponding color sets for above colors with light/dark variants
+No known gaps at this time.

@@ -7,6 +7,7 @@ struct OnboardingView: View {
     @FocusState private var isInputFocused: Bool
     @FocusState private var isSubmitFocused: Bool
     @Environment(\.accessibilityReduceMotion) var reduceMotion
+    @State private var isButtonHovered: Bool = false
     
     private var isValidAPIKey: Bool {
         !apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -51,25 +52,46 @@ struct OnboardingView: View {
             }
 
             VStack(spacing: DesignTokens.Spacing.lg) {
-                SecureField("API Key", text: $apiKey)
-                    .textFieldStyle(.plain)
-                    .padding(DesignTokens.Spacing.md)
-                    .background(
-                        RoundedRectangle(cornerRadius: DesignTokens.Radius.md)
-                            .fill(DesignTokens.Colors.surfaceSecondary)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: DesignTokens.Radius.md)
-                            .stroke(DesignTokens.Colors.borderSubtle, lineWidth: 1)
-                    )
-                    .frame(maxWidth: 400)
-                    .focused($isInputFocused)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        if isValidAPIKey {
-                            onSubmit()
-                        }
+                ZStack {
+                    if apiKey.isEmpty {
+                        Text("API Key")
+                            .font(DesignTokens.Typography.bodyMedium)
+                            .foregroundStyle(DesignTokens.Colors.textTertiary)
+                            .frame(maxWidth: 400, alignment: .leading)
+                            .padding(.horizontal, DesignTokens.Spacing.md + 4)
+                            .allowsHitTesting(false)
                     }
+                    
+                    SecureField("API Key", text: $apiKey)
+                        .textFieldStyle(.plain)
+                        .padding(DesignTokens.Spacing.md)
+                        .padding(.horizontal, 4)
+                        .frame(maxWidth: 400)
+                        .focused($isInputFocused)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            if isValidAPIKey {
+                                onSubmit()
+                            }
+                        }
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: DesignTokens.Radius.md)
+                        .fill(DesignTokens.Colors.surfaceSecondary)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: DesignTokens.Radius.md)
+                        .stroke(
+                            isInputFocused ? DesignTokens.Colors.accentPrimary :
+                            DesignTokens.Colors.borderSubtle,
+                            lineWidth: isInputFocused ? 2 : 1
+                        )
+                )
+                .shadow(
+                    color: isInputFocused ? DesignTokens.Colors.accentPrimary.opacity(0.15) : .clear,
+                    radius: isInputFocused ? 8 : 0,
+                    y: isInputFocused ? 2 : 0
+                )
 
                 Button(action: onSubmit) {
                     HStack {
@@ -83,10 +105,18 @@ struct OnboardingView: View {
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
                 .disabled(!isValidAPIKey)
-                .opacity(isValidAPIKey ? 1.0 : 0.5)
-                .shadow(color: DesignTokens.Colors.accentPrimary.opacity(isValidAPIKey ? 0.3 : 0), radius: 8, y: 4)
+                .opacity(isValidAPIKey ? (isButtonHovered ? 0.9 : 1.0) : 0.5)
+                .scaleEffect(isButtonHovered && isValidAPIKey ? 1.02 : 1.0)
+                .shadow(
+                    color: isValidAPIKey ? DesignTokens.Colors.accentPrimary.opacity(isButtonHovered ? 0.5 : 0.3) : .clear,
+                    radius: isButtonHovered && isValidAPIKey ? 12 : 8,
+                    y: isButtonHovered && isValidAPIKey ? 6 : 4
+                )
                 .focused($isSubmitFocused)
                 .keyboardShortcut(.defaultAction)
+                .onHover { hovering in
+                    isButtonHovered = hovering
+                }
             }
 
             Text("Your API key is stored locally and never leaves your device")
@@ -101,5 +131,6 @@ struct OnboardingView: View {
         .onAppear {
             isInputFocused = true
         }
+        .animation(.appSpring(reduceMotion: reduceMotion), value: isButtonHovered)
     }
 }

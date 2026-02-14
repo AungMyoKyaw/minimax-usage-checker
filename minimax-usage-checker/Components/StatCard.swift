@@ -44,7 +44,11 @@ struct StatCard: View {
                 .stroke(status.color.opacity(0.2), lineWidth: 1)
         )
         .scaleEffect(isHovered ? 1.02 : 1.0)
-        .shadow(radius: isHovered ? 12 : 8)
+        .shadow(
+            color: Color.black.opacity(isHovered ? 0.12 : 0.06),
+            radius: isHovered ? 12 : 6,
+            y: isHovered ? 4 : 2
+        )
         .animation(.appSubtle(reduceMotion: reduceMotion), value: isHovered)
         .onHover { isHovered = $0 }
         .accessibilityElement(children: .combine)

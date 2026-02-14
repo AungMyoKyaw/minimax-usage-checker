@@ -116,7 +116,11 @@ struct ModelCard: View {
             RoundedRectangle(cornerRadius: DesignTokens.Radius.xl)
                 .stroke(status.color.opacity(isExpanded ? 0.3 : 0.15), lineWidth: isExpanded ? 2 : 1)
         )
-        .shadow(radius: isExpanded ? 12 : 8)
+        .shadow(
+            color: Color.black.opacity(isExpanded ? 0.12 : 0.08),
+            radius: isExpanded ? 12 : 8,
+            y: isExpanded ? 4 : 2
+        )
         .animation(.appSpring(reduceMotion: reduceMotion), value: isExpanded)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(model.modelName), \(Int(model.usagePercentage)) percent used, \(model.formattedRemainingTime) remaining")
