@@ -30,7 +30,7 @@ struct TabBar: View {
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: DesignTokens.Spacing.sm) {
             ForEach(TabIdentifier.allCases, id: \.self) { tab in
                 Button(action: {
                     selectedTab = tab
@@ -42,12 +42,12 @@ struct TabBar: View {
                             .font(DesignTokens.Typography.bodyMedium)
                             .fontWeight(selectedTab == tab ? .semibold : .regular)
                     }
-                    .foregroundStyle(selectedTab == tab ? .white : .secondary)
+                    .foregroundStyle(selectedTab == tab ? .white : DesignTokens.Colors.textSecondary)
                     .padding(.vertical, 10)
                     .padding(.horizontal, 20)
                     .background(
                         RoundedRectangle(cornerRadius: DesignTokens.Radius.sm)
-                            .fill(selectedTab == tab ? Color.accentColor : Color.clear)
+                            .fill(selectedTab == tab ? DesignTokens.Colors.accentPrimary : Color.clear)
                     )
                     .contentShape(Rectangle())
                 }

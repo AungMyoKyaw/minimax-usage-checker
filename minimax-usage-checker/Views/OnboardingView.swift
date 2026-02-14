@@ -5,7 +5,12 @@ struct OnboardingView: View {
     let onSubmit: () -> Void
 
     @FocusState private var isInputFocused: Bool
+    @FocusState private var isSubmitFocused: Bool
     @Environment(\.accessibilityReduceMotion) var reduceMotion
+    
+    private var isValidAPIKey: Bool {
+        !apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
 
     var body: some View {
         VStack(spacing: DesignTokens.Spacing.xxl) {
@@ -16,7 +21,7 @@ struct OnboardingView: View {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [Color.accentColor.opacity(0.4), Color.accentColor.opacity(0.1)],
+                                colors: [DesignTokens.Colors.accentPrimary.opacity(0.4), DesignTokens.Colors.accentPrimary.opacity(0.1)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
@@ -27,13 +32,13 @@ struct OnboardingView: View {
                         .font(.system(size: 48))
                         .foregroundStyle(
                             LinearGradient(
-                                colors: [Color.accentColor, Color.accentColor.opacity(0.6)],
+                                colors: [DesignTokens.Colors.accentPrimary, DesignTokens.Colors.accentPrimary.opacity(0.6)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                 }
-                .shadow(color: Color.accentColor.opacity(0.3), radius: 20)
+                .shadow(color: DesignTokens.Colors.accentPrimary.opacity(0.3), radius: 20)
 
                 VStack(spacing: DesignTokens.Spacing.sm) {
                     Text("MiniMax Usage")
@@ -41,7 +46,7 @@ struct OnboardingView: View {
 
                     Text("Track your AI usage in real-time")
                         .font(DesignTokens.Typography.bodyMedium)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(DesignTokens.Colors.textSecondary)
                 }
             }
 
@@ -59,6 +64,12 @@ struct OnboardingView: View {
                     )
                     .frame(maxWidth: 400)
                     .focused($isInputFocused)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        if isValidAPIKey {
+                            onSubmit()
+                        }
+                    }
 
                 Button(action: onSubmit) {
                     HStack {
@@ -71,14 +82,16 @@ struct OnboardingView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
-                .disabled(apiKey.isEmpty)
-                .opacity(apiKey.isEmpty ? 0.5 : 1.0)
-                .shadow(color: Color.accentColor.opacity(apiKey.isEmpty ? 0 : 0.3), radius: 8, y: 4)
+                .disabled(!isValidAPIKey)
+                .opacity(isValidAPIKey ? 1.0 : 0.5)
+                .shadow(color: DesignTokens.Colors.accentPrimary.opacity(isValidAPIKey ? 0.3 : 0), radius: 8, y: 4)
+                .focused($isSubmitFocused)
+                .keyboardShortcut(.defaultAction)
             }
 
             Text("Your API key is stored locally and never leaves your device")
                 .font(DesignTokens.Typography.captionSmall)
-                .foregroundStyle(.tertiary)
+                .foregroundStyle(DesignTokens.Colors.textTertiary)
 
             Spacer()
         }
