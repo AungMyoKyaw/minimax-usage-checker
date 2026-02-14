@@ -3,7 +3,7 @@ import SwiftUI
 struct LinearProgressView: View {
     let progress: Double
     let status: UsageStatus
-    var height: CGFloat = 8
+    var height: CGFloat = 6
 
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 

@@ -51,7 +51,7 @@ struct DashboardView: View {
                     EmptyStateView(type: .noModels)
                 }
             }
-            .padding(DesignTokens.Spacing.lg)
+            .padding(DesignTokens.Spacing.md)
         }
         .background(DesignTokens.Colors.surfaceTertiary.opacity(0.5))
     }

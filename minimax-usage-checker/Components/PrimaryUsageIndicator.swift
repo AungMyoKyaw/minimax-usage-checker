@@ -18,8 +18,8 @@ struct PrimaryUsageIndicator: View {
             CircularProgressView(
                 progress: progress,
                 status: status,
-                size: CGSize(width: 160, height: 160),
-                lineWidth: 12
+                size: CGSize(width: 80, height: 80),
+                lineWidth: 6
             )
 
             VStack(spacing: DesignTokens.Spacing.sm) {

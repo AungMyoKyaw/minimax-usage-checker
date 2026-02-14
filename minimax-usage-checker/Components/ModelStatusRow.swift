@@ -42,8 +42,7 @@ struct ModelStatusRow: View {
                     .foregroundStyle(.secondary)
             }
         }
-        .padding(.vertical, DesignTokens.Spacing.sm)
-        .padding(.horizontal, DesignTokens.Spacing.md)
+        .padding(DesignTokens.Spacing.md)
         .background(
             RoundedRectangle(cornerRadius: DesignTokens.Radius.md)
                 .fill(DesignTokens.Colors.surfacePrimary)

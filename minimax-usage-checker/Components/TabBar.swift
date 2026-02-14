@@ -41,7 +41,7 @@ struct TabBar: View {
                 }) {
                     HStack(spacing: DesignTokens.Spacing.sm) {
                         Image(systemName: tab.icon)
-                            .font(.system(size: 14))
+                            .font(.system(size: 16))
                         Text(tab.label)
                             .font(DesignTokens.Typography.bodyMedium)
                             .fontWeight(selectedTab == tab ? .semibold : .regular)
@@ -51,7 +51,8 @@ struct TabBar: View {
                         hoveredTab == tab ? DesignTokens.Colors.textPrimary :
                         DesignTokens.Colors.textSecondary
                     )
-                    .padding(.vertical, 10)
+                    .padding(.top, 6)
+                    .padding(.bottom, 5)
                     .padding(.horizontal, 20)
                     .background(
                         RoundedRectangle(cornerRadius: DesignTokens.Radius.sm)
@@ -61,6 +62,7 @@ struct TabBar: View {
                                 Color.clear
                             )
                     )
+                    .frame(minHeight: 44)
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
@@ -85,7 +87,7 @@ struct TabBar: View {
                 }
             }
             .buttonStyle(.plain)
-            .padding(10)
+            .padding(DesignTokens.Spacing.md)
             .disabled(isLoading)
             .opacity(isLoading ? 0.5 : 1.0)
             .accessibilityLabel("Refresh data")

@@ -8,7 +8,7 @@ struct AlertHistoryView: View {
             if historyManager.history.isEmpty {
                 VStack(spacing: 16) {
                     Image(systemName: "bell.slash")
-                        .font(.system(size: 48))
+                        .font(DesignTokens.Typography.displayLarge)
                         .foregroundColor(.secondary)
                     
                     Text("No Alert History")

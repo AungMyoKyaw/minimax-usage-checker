@@ -5,7 +5,7 @@ struct HistoryView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: DesignTokens.Spacing.lg) {
+            VStack(spacing: DesignTokens.Spacing.md) {
                 TimeRangePicker(selectedRange: $viewModel.selectedTimeRange)
 
                 TimelineChart(data: viewModel.dailyUsageData)

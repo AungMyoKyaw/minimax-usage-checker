@@ -27,7 +27,7 @@ struct TimeRangePicker: View {
                 .buttonStyle(.plain)
             }
         }
-        .padding(4)
+        .padding(DesignTokens.Spacing.xs)
         .background(
             RoundedRectangle(cornerRadius: DesignTokens.Radius.md)
                 .fill(DesignTokens.Colors.surfaceSecondary)

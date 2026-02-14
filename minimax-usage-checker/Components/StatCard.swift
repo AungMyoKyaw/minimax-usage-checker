@@ -14,7 +14,7 @@ struct StatCard: View {
         VStack(alignment: .leading, spacing: DesignTokens.Spacing.md) {
             HStack {
                 Image(systemName: icon)
-                    .font(.system(size: 20))
+                    .font(.system(size: 16))
                     .foregroundStyle(status.color)
                 Spacer()
             }
